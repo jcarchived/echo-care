@@ -34,7 +34,7 @@ class Appointment(db.Model):
 # Routes
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_html('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -46,7 +46,7 @@ def login():
             session['admin'] = True
             return redirect(url_for('admin_dashboard'))
         return 'Invalid Credentials'
-    return render_template('login.html')
+    return render_html('login.html')
 
 @app.route('/logout')
 def logout():
@@ -62,7 +62,7 @@ def guest():
         db.session.add(message)
         db.session.commit()
         return redirect(url_for('guest'))
-    return render_template('guest.html')
+    return render_html('guest.html')
 
 @app.route('/appointment', methods=['POST'])
 def book_appointment():
@@ -84,7 +84,7 @@ def admin_dashboard():
     appointments = Appointment.query.all()
 
     # Pass both messages and appointments to admin.html
-    return render_template('admin.html', messages=messages, appointments=appointments)
+    return render_html('admin.html', messages=messages, appointments=appointments)
 
 if __name__ == '__main__':
     with app.app_context():
