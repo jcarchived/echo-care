@@ -10,10 +10,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# Define base directory
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Database Models
 class Admin(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
@@ -27,11 +25,10 @@ class Message(db.Model):
 class Appointment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    date = db.Column(db.String(20), nullable=False)  # Date of the appointment
-    time = db.Column(db.String(20), nullable=False)  # Time of the appointment
-    topics = db.Column(db.Text, nullable=False)      # Topics to discuss during the appointment
+    date = db.Column(db.String(20), nullable=False)  
+    time = db.Column(db.String(20), nullable=False)  
+    topics = db.Column(db.Text, nullable=False)      
 
-# Routes
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -83,7 +80,6 @@ def admin_dashboard():
     messages = Message.query.all()
     appointments = Appointment.query.all()
 
-    # Pass both messages and appointments to admin.html
     return render_template('admin.html', messages=messages, appointments=appointments)
 
 if __name__ == '__main__':
